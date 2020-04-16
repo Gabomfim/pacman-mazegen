@@ -1444,8 +1444,43 @@ var drawTiles = function(ctx,left,top,size) {
     ctx.restore();
 };
 
+function download(data, filename, type) {
+    var file = new Blob([data], {type: type});
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
+}
+
 var mapgen = function() {
     genRandom();
+
+    //minha implementação
+    let data = "";
+
+    for(i=0; i<(31*28); i++){
+        data += getTiles()[i];
+        if( ((i+1) % 28) == 0){
+            data += '\n';
+        }
+    }
+
+    download(data, "output", "txt");
+    
+    // Function to download data to a file
+
+    
+
     var map = new Map(28,36,getTiles());
     map.name = "";
     map.wallFillColor = randomColor();
