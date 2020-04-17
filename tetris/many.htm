@@ -7,7 +7,7 @@
 </head>
 <body>
 <p>
-<button onclick="draw()">Click to generate new maps</button>
+<button onclick="draw()">Click to generate a new map and download</button>
 </p>
 
 <canvas id='canvas'></canvas>
@@ -16,8 +16,8 @@
 var draw = function() {
     var canvas = document.getElementById('canvas');
 
-    var rows = 4;
-    var cols = 4;
+    var rows = 1;
+    var cols = 1;
     var w,h;
     w = 28*8;
     h = 36*8;
